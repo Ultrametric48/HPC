@@ -35,29 +35,19 @@ float RandInRange(float a, float b)
 
 float * TenDimentionalRandomVectorInRange(float a, float b)
 {
-    
     float *randomValue = malloc(sizeof(float) * 10);
-    
     for (int c = 0; c < 10; c++){
-        
         randomValue[c] = RandInRange(a, b);
-        
     }
     return randomValue;
 }
 
 
-
 float * ArbitraryDimentionalRandomVectorInRange(float a, float b, int dim)
-{
-    
-    float *randomValue = malloc(sizeof(float) * dim);
-    
-    
+{    
+    float *randomValue = malloc(sizeof(float) * dim);   
     for (int c = 0; c < dim; c++){
-        
         randomValue[c] = RandInRange(a, b);
-        
     }
     return randomValue;   
 }
@@ -66,13 +56,9 @@ float * ArbitraryDimentionalRandomVectorInRange(float a, float b, int dim)
 float LFunction(float * randPointer)
 {
     float sum = 0;
-    
     for(int c = 0; c < 10; c++){
-        
         //printf("%f \n", randPointer[c]);
-        
         sum += randPointer[c];
-        
     }
     //printf("  \n");
     return sum;
@@ -90,8 +76,7 @@ float expLFunction(float * randPointer)
         
         partOne = (1.0 - randPointer[c])*(1.0 - randPointer[c]);
         partTwo = 100.0*(randPointer[c+1] - randPointer[c]*randPointer[c])*(randPointer[c+1] - randPointer[c]*randPointer[c]);
-        
-        
+     
         sum += partOne + partTwo;
         
         return exp(-sum);
@@ -137,10 +122,7 @@ float MonteCarloIntegration(int iterationNumber)
             //Run For problem 3.
         sum += expLFunction(randVector);
         
-        
-        
-        
-        
+           
         //use this for 4^k
         
         
@@ -168,9 +150,7 @@ float MonteCarloIntegration(int iterationNumber)
                 temp = integralValue_at_Iteration_c;
    
                 printf("At iteration %d, the integral value is %f \n", count, integralValue_at_Iteration_c);
-                printf("The error at iteration %d is %f \n", count, error);
-            
-            
+                printf("The error at iteration %d is %f \n", count, error);    
                 foo = pow(4, ++k);
             
             }
@@ -180,14 +160,9 @@ float MonteCarloIntegration(int iterationNumber)
           count++;  
         }
         
-
-
         if (c > 1)
             continue;
-        
         threadNumber = omp_get_num_threads();
-        
-
     }
     
     

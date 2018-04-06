@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,7 @@
 
 /* 
  * File:   main.c
- * Author: dominicg
+ * Author: Dominic
  *
  * Created on October 23, 2016, 8:19 PM
  */
@@ -21,10 +22,9 @@
  * 
  */
 
-float RandfromNegativefivetofive(){
-   
+float RandfromNegativefivetofive()
+{
     float r = 10.0*((float)rand()/RAND_MAX) - 5.0;
-    
     return r;
 }
 
@@ -35,19 +35,28 @@ float RandInRange(float a, float b)
 
 float * TenDimentionalRandomVectorInRange(float a, float b)
 {
+    
     float *randomValue = malloc(sizeof(float) * 10);
-    for (int c = 0; c < 10; c++){
+    int c;
+    for (c = 0; c < 10; c++)
         randomValue[c] = RandInRange(a, b);
-    }
+        
+    
     return randomValue;
 }
 
 
+
 float * ArbitraryDimentionalRandomVectorInRange(float a, float b, int dim)
-{    
-    float *randomValue = malloc(sizeof(float) * dim);   
-    for (int c = 0; c < dim; c++){
+{
+    
+    float *randomValue = malloc(sizeof(float) * dim);
+    
+    
+    for(int c = 0; c < dim; c++){
+        
         randomValue[c] = RandInRange(a, b);
+        
     }
     return randomValue;   
 }
@@ -56,9 +65,14 @@ float * ArbitraryDimentionalRandomVectorInRange(float a, float b, int dim)
 float LFunction(float * randPointer)
 {
     float sum = 0;
+    
+    
     for(int c = 0; c < 10; c++){
+        
         //printf("%f \n", randPointer[c]);
+        
         sum += randPointer[c];
+        
     }
     //printf("  \n");
     return sum;
@@ -72,13 +86,13 @@ float expLFunction(float * randPointer)
     double partOne = 0;
     double partTwo = 0;
     
+    
     for(int c = 1; c <= 9; c++){
         
         partOne = (1.0 - randPointer[c])*(1.0 - randPointer[c]);
         partTwo = 100.0*(randPointer[c+1] - randPointer[c]*randPointer[c])*(randPointer[c+1] - randPointer[c]*randPointer[c]);
-     
-        sum += partOne + partTwo;
         
+        sum += partOne + partTwo;
         return exp(-sum);
         
     }
@@ -89,7 +103,6 @@ float expLFunction(float * randPointer)
 
 float MonteCarloIntegration(int iterationNumber)
 {
-    
     
     double sum = 0; //double
     long long Volume = pow(10,10);
@@ -104,7 +117,8 @@ float MonteCarloIntegration(int iterationNumber)
     
     
     #pragma omp parallel for  
-    for(int c = 1; c <= iterationNumber; c++){
+    for(int c = 1; c <= iterationNumber; c++)
+    {
         
         //float * randVector = ArbitraryDimentionalRandomVectorInRange(-5, 5, 10);
         float * randVector = ArbitraryDimentionalRandomVectorInRange(-0.5, 0.5, 10);
@@ -113,55 +127,54 @@ float MonteCarloIntegration(int iterationNumber)
         {
             
          
-        //****************************************
+            //****************************************
             //Run for problem 1
-        //sum += LFunction(randVector);
+            sum += LFunction(randVector);
         
         
-        //****************************************
+            //****************************************
             //Run For problem 3.
-        sum += expLFunction(randVector);
-        
-           
-        //use this for 4^k
-        
-        
-        //rather than using master, thread zero is tasked with printing values
-        //be careful of the master thread skipping powers of 4! Select out that thread for which count is a power of 4
-        
-        // local to critical scope
-        int threadNum;
+            //sum += expLFunction(randVector);
+
+            //use this for 4^k
         
         
+            //rather than using master, thread zero is tasked with printing values
+            //be careful of the master thread skipping powers of 4! Select out that thread for which count is a power of 4
         
-        if(count == foo)
-        {
-            //find the thread that's a power of four and only execute that 
-            threadNum = omp_get_thread_num();
-            
-            
-            if (omp_get_thread_num() == threadNum)    
+            // local to critical scope
+            int threadNum;
+        
+        
+        
+            if(count == foo)
             {
-            // if c is a power of 4, then print iteration number and integral value
+                //find the thread that's a power of four and only execute that 
+                threadNum = omp_get_thread_num();
             
             
-                integralValue_at_Iteration_c = (1.0/(float)count) * sum;
-                error = fabs(integralValue_at_Iteration_c - temp);
-                temp = integralValue_at_Iteration_c;
+                if (omp_get_thread_num() == threadNum)    
+                {
+                    // if c is a power of 4, then print iteration number and integral value
+            
+                    integralValue_at_Iteration_c = (1.0/(float)count) * sum;
+                    error = fabs(integralValue_at_Iteration_c - temp);
+                    temp = integralValue_at_Iteration_c;
    
-                printf("At iteration %d, the integral value is %f \n", count, integralValue_at_Iteration_c);
-                printf("The error at iteration %d is %f \n", count, error);    
-                foo = pow(4, ++k);
+                    printf("At iteration %d, the integral value is %f \n", count, integralValue_at_Iteration_c);
+                    printf("The error at iteration %d is %f \n", count, error);
             
+                    foo = pow(4, ++k);
+                }
+        
             }
         
-        }
-        
-          count++;  
+                count++;  
         }
         
         if (c > 1)
             continue;
+        
         threadNumber = omp_get_num_threads();
     }
     
@@ -199,7 +212,7 @@ int main(int argc, char** argv) {
     printf("**************************************** \n");
     printf("\n");
     start = omp_get_wtime();
-    printf("Monte Carlo Integration Output: %f \n", MonteCarloIntegration(10000000));
+    printf("Monte Carlo Integration Output: %f \n", MonteCarloIntegration(100000));
     end = omp_get_wtime();
     
     printf("\n");
@@ -213,4 +226,5 @@ int main(int argc, char** argv) {
     
     return (EXIT_SUCCESS);
 }
+
 

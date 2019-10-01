@@ -1,5 +1,9 @@
 
 
+run_clean:
+	g++ host/opencl.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL
+	./executables/exe.out
+
 
 run: 
 	g++ host/opencl.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL

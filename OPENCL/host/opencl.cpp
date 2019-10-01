@@ -110,7 +110,7 @@ const char *kernelSource =                                       "\n" \
 "                                                                \n" \
 "    //Make sure we do not go out of bounds                      \n" \
 "    if (id < n)                                                 \n" \
-"        printf(\"In kernel %d  \", id);                         \n" \
+"        printf(\"In kernel %d \\n \", id);                         \n" \
 "        //c[id] = a[id] + b[id];                                 \n" \
 "}                                                               \n" \
                                                                 "\n" ;
@@ -127,10 +127,10 @@ int main( int argc, char* argv[] )
     // Host output vector
     double *h_c;
  
-    // Device input buffers
+    //Device input buffers
     cl_mem d_a;
     cl_mem d_b;
-    // Device output buffer
+    //Device output buffer
     cl_mem d_c;
     //cl Device info 
     char device_info[1024];
@@ -149,7 +149,7 @@ int main( int argc, char* argv[] )
     //Function
     
     first_order_diff_eq_solver exp; //constructor initial conditions
-    float x = 1.000001;
+    float x = 1.0;
     float y = 1.0;
     float z = 1.0;
     float x_temp = 1.0;

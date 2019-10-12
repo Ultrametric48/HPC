@@ -19,6 +19,8 @@ z_data = df['z']
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(x_data,y_data,z_data)
+
+plt.plot(t_data, x_data)
 plt.show()
 
 

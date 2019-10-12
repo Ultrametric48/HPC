@@ -4,9 +4,17 @@ run_clean:
 	g++ host/opencl.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL
 	./executables/exe.out
 
+stringify:
+	python2 ./build_tools/stringify.py
+
+run_clean_db:
+	g++ host/opencl.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL
+	gdb ./executables/exe.out
+
+
 
 run: 
-	g++ host/opencl.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL
+	g++ host/main.cpp -o ./executables/exe.out -std=c++11 -Wall -framework OpenCL
 	rm ./IO/output.csv 
 	./executables/exe.out >> ./IO/output.csv
 	python2 ./visualization/data_post_processing.py

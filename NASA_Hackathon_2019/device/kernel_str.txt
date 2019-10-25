@@ -1,0 +1,20 @@
+"\n" \
+"#pragma OPENCL EXTENSION cl_khr_fp64 : enable\n" \
+"__kernel void Dust(__global double *a,\n" \
+"__global double *b,\n" \
+"__global double *c,\n" \
+"const unsigned int n,\n" \
+"__global double *icds)\n" \
+"{\n" \
+"//Get our global thread ID\n" \
+"int id = get_global_id(0);\n" \
+"\n" \
+"//Make sure we do not go out of bounds\n" \
+"if (id < 10){\n" \
+"printf(\"In kernel %d \\n Random initial condition: (%d, %d, %d) \\n \", id, icds[3*id],icds[3*id+1],icds[3*id+2]);\n" \
+"}\n" \
+"}\n" \
+"\n" \
+"\n" \
+"\n" \
+; 

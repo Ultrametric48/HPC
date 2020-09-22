@@ -1,5 +1,8 @@
 
 
 conv:
-	$(ECHO) g++ conv2d.cpp -Wall -o conv.out
-	$(ECHO) ./conv.out
+	$(ECHO) g++ ./host/conv2d.cpp -Wall -o ./executables/conv.out
+	$(ECHO) ./executables/conv.out
+
+
+
